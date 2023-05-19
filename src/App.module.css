@@ -1,0 +1,35 @@
+body {
+  background-color: #00252f;
+}
+
+.App {
+  margin: 200px auto;
+  border: 2px solid #00FFFD;
+  border-radius: 10px;
+  width: 300px;
+  height: 200px;
+  padding: 20px;
+}
+
+.counter {
+  text-align: center;
+  color: #00252f;
+  font-size: 54px;
+  font-weight: 600;
+  background-color: #00FFFD;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.disabled {
+  color: #ff0034;
+}
+
+.box {
+  display: flex;
+  gap: 10px;
+  border: 2px solid #00FFFD;
+  padding: 20px;
+  border-radius: 10px;
+}
