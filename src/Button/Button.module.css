@@ -18,9 +18,9 @@
 }
 
 .button:active {
-    outline: 2px solid #ffff01;
-    color: #ffff01;
-    background-color: #00252f;
+    outline: none;
+    color: #00252f;
+    background-color: #ffff01;
 }
 
 .button[disabled] {

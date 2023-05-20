@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import s from './App.module.css';
-import Button from "./Button/Button";
-import Counter from "./Counter/Counter";
+import Button from './Button/Button';
+import Counter from './Counter/Counter';
 
 function App() {
     const [counter, setCounter] = useState<number>(0)
 
     const buttonInc = () => {
-        setCounter(counter + 1)
+        setCounter(value => value + 1)
     }
 
     const buttonReset = () => {

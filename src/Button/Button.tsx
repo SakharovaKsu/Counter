@@ -7,12 +7,9 @@ type ButtonType = {
     disabled: boolean
 }
 const Button:FC<ButtonType> = ({name, onClick, disabled}) => {
-    const buttonHandler = () => {
-        onClick()
-    }
 
     return (
-        <button className={s.button} onClick={buttonHandler} disabled={disabled}>{name}</button>
+        <button className={s.button} onClick={onClick} disabled={disabled}>{name}</button>
     );
 };
 
