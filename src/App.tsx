@@ -13,12 +13,12 @@ function App() {
         setCounter(0)
     }
 
-    // const counterClassName = s.counter + ' ' +
-    //     (disabled ? s.disabled : '')
+    const counterClassName = s.counter + ' ' +
+        (counter === 5 ? s.disabled : '')
 
     return (
         <div className={s.App}>
-            <div className={s.counter}>{counter}</div>
+            <div className={counterClassName}>{counter}</div>
             <div className={s.box}>
                 <Button onClick={buttonInc} disabled={counter === 5} name={'inc'}/>
                 <Button onClick={buttonReset} disabled={counter === 0} name={'reset'}/>

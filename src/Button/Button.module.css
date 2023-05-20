@@ -23,6 +23,7 @@
     background-color: #00252f;
 }
 
-.button:disabled {
+.button[disabled] {
     opacity: 0.6;
+    pointer-events: none;
 }
