@@ -4,7 +4,7 @@ import s from'./Button.module.css'
 type ButtonType = {
     name: string
     onClick: () => void
-    disabled: boolean
+    disabled?: boolean
 }
 const Button:FC<ButtonType> = ({name, onClick, disabled}) => {
 

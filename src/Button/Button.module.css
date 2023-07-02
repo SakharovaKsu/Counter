@@ -2,9 +2,9 @@
     width: 100%;
     font-size: 24px;
     font-weight: 600;
-    color: #00252f;
+    color: #4f1d48;
     padding: 10px 15px;
-    background-color: #00FFFD;
+    background-color: #FFF200;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -12,15 +12,15 @@
 
 .button:hover,
 .button:focus-visible {
-    outline: 2px solid #00FFFD;
-    color: #00FFFD;
-    background-color: #00252f;
+    outline: 2px solid #FFF200;
+    color: #FFF200;
+    background-color: #742868;
 }
 
 .button:active {
     outline: none;
-    color: #00252f;
-    background-color: #ffff01;
+    color: #742868;
+    background-color: #ffffcf;
 }
 
 .button[disabled] {
