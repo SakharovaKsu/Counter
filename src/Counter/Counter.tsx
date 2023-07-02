@@ -3,14 +3,19 @@ import s from './Counter.module.css'
 
 type CounterType = {
     counter: number
+    error: string
+    maxValue: number
 }
-const Counter: FC<CounterType> = ({counter}) => {
+const Counter: FC<CounterType> = ({counter, error, maxValue}) => {
 
     const counterClassName = s.counter + ' ' +
-        (counter === 5 ? s.disabled : '')
+        (counter === maxValue ? s.disabled : '')
+
 
     return (
-        <div className={counterClassName}>{counter}</div>
+        <div className={counterClassName}>
+            {error ? <span className={s.error}>{error}</span> : counter}
+        </div>
     );
 };
 
