@@ -24,3 +24,9 @@
     margin-top: 5px;
     text-align: center;
 }
+
+.error {
+    background-color: #ff8da6;
+    border: 2px solid #ff0034;
+    color: #4f1d48;
+}
