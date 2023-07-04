@@ -5,23 +5,20 @@ import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 
 function App() {
-    const [counter, setCounter] = useState<number>(0)
     const [startValue, setStartValue] = useState<number>(1)
     const [maxValue, setMaxValue] = useState<number>(5)
-    const [error, setError] = useState<string>('')
-    const [clue, setClue] = useState<string>('')
+    const [counter, setCounter] = useState<number>(startValue)
+    const [error, setError] = useState<string>('Incorrect value')
+    const [displayCounter, setDisplayCounter] = useState<boolean>(false);
 
     // установка счетчика
     const setValuesClickHandler = () => {
         if (startValue > maxValue) {
             setError('Start value must be less than max value');
-        } else if(startValue < 0){
-            setError('Incorrect value')
-        } else if(startValue === maxValue) {
-            setError('Incorrect value')
+        } else if (maxValue > 1 || startValue > 0) {
+            setCounter(startValue);
+            setDisplayCounter(true);
         }
-        setClue('Enter values and press "set"')
-        setCounter(startValue)
     }
 
     useEffect(() => {
@@ -31,16 +28,6 @@ function App() {
             setCounter(parseInt(savedCount));
         }
     }, []);
-
-    // if (startValue > maxValue) {
-    //     setError('Start value must be less than max value');
-    // } else if(startValue < 0){
-    //     setError('Incorrect value')
-    // } else if(startValue == maxValue) {
-    //     setError('Incorrect value')
-    // } else {
-    //     setError('')
-    // }
 
     // кнопка увелечения счетчика
     const buttonInc = () => {
@@ -59,14 +46,11 @@ function App() {
         localStorage.setItem('count', counter.toString());
     }, [counter]);
 
-    // блокировка кнопки set
-    const disabledButtonSet = startValue < 0 || startValue === maxValue
+    // блокировка кнопки
+    const disabledButton = startValue > maxValue || startValue < 0 || startValue === maxValue
 
     // блокировка кнопки inc
     const disabledButtonInc = startValue >= maxValue || startValue < 0 || counter >= maxValue
-
-    // блокировка кнопки reset
-    const disabledButtonReset = startValue === maxValue || startValue < 0
 
     return (
         <div className={s.appContainer}>
@@ -76,19 +60,19 @@ function App() {
                             startValue={startValue}
                             setStartValue={setStartValue}
                             setMaxValue={setMaxValue}
-                            setError={setError}
-                            setClue={setClue}/>
-                <Button name={'Set'} onClick={setValuesClickHandler} disabled={disabledButtonSet}/>
+                            setError={setError}/>
+                <Button name={'Set'} onClick={setValuesClickHandler} disabled={disabledButton}/>
             </div>
 
             <div className={s.app}>
                 <Counter counter={counter}
                          error={error}
                          maxValue={maxValue}
-                         clue={clue}/>
+                         startValue={startValue}
+                         displayCounter={displayCounter}/>
                 <div className={s.box}>
                     <Button onClick={buttonInc} disabled={disabledButtonInc} name={'inc'}/>
-                    <Button onClick={buttonReset} disabled={disabledButtonReset} name={'reset'}/>
+                    <Button onClick={buttonReset} disabled={disabledButton} name={'reset'}/>
                 </div>
             </div>
         </div>

@@ -8,26 +8,15 @@ type CounterSetType = {
     setStartValue: (value: number) => void
     setMaxValue: (value: number) => void
     setError: (text: string) => void
-    setClue: (text: string) => void
 }
 
 const CounterSet:FC<CounterSetType> = ({setCounter, maxValue, startValue, setStartValue, setMaxValue, setError}) => {
 
     const onChangeStartHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (startValue > maxValue) {
-            setError('Start value must be less than max value');
-        } else if(startValue < -1){
-            setError('Incorrect value')
-        } else if(startValue === maxValue) {
-            setError('Incorrect value')
-        }
         setStartValue(+e.currentTarget.value)
     }
 
     const onChangeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if(startValue === maxValue) {
-            setError('Incorrect value')
-        }
         setMaxValue(+e.currentTarget.value)
     }
 
