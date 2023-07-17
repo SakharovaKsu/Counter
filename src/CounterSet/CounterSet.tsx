@@ -2,7 +2,6 @@ import React, {ChangeEvent, FC, useState} from 'react';
 import s from './CounterSet.module.css'
 
 type CounterSetType = {
-    setCounter: (value: number) => void
     maxValue: number
     startValue: number
     setStartValue: (value: number) => void
@@ -10,7 +9,7 @@ type CounterSetType = {
     setError: (text: string) => void
 }
 
-const CounterSet:FC<CounterSetType> = ({setCounter, maxValue, startValue, setStartValue, setMaxValue, setError}) => {
+const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, setMaxValue, setError}) => {
 
     const onChangeStartHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setStartValue(+e.currentTarget.value)
@@ -20,18 +19,21 @@ const CounterSet:FC<CounterSetType> = ({setCounter, maxValue, startValue, setSta
         setMaxValue(+e.currentTarget.value)
     }
 
-    const inputClassName = s.input + ' ' +
+    const startInputClassName = s.input + ' ' +
         (startValue < 0 ? s.error: '')
+
+    const maxInputClassName = s.input + ' ' +
+        (maxValue < 0 ? s.error: '')
 
     return (
         <div className={s.boxValue}>
             <div className={s.value}>
                 <label htmlFor={'max'}>Max value: </label>
-                <input className={s.input} type={'number'} id={'max'} value={maxValue} onChange={onChangeMaxHandler}/>
+                <input className={maxInputClassName} type={'number'} id={'max'} value={maxValue} onChange={onChangeMaxHandler}/>
             </div>
             <div className={s.value}>
                 <label htmlFor={'start'}>Start value: </label>
-                <input className={inputClassName} type={'number'} id={'start'} value={startValue} onChange={onChangeStartHandler}/>
+                <input className={startInputClassName} type={'number'} id={'start'} value={startValue} onChange={onChangeStartHandler}/>
             </div>
         </div>
     );

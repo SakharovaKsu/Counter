@@ -11,6 +11,26 @@ function App() {
     const [error, setError] = useState<string>('Incorrect value')
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
 
+    // Сохранение значения при изменении счетчика
+    // JSON.stringify - преобразование в строку
+    useEffect(() => {
+        localStorage.setItem('startValue', JSON.stringify(startValue));
+    }, [startValue]);
+
+    // Загрузка сохраненного значения при первом рендере
+    useEffect(() => {
+        const savedCount = localStorage.getItem('startValue');
+
+        // делаем проверку, так как в localStorage может ничего не сидеть (null)
+        // JSON.parse - преобразовываем в объект
+        if (savedCount) {
+            const newCount = JSON.parse(savedCount)
+
+            // Сетаем сохраненное значение
+            setStartValue(newCount);
+        }
+    }, []);
+
     // установка счетчика
     const setValuesClickHandler = () => {
         if (startValue > maxValue) {
@@ -20,14 +40,6 @@ function App() {
             setDisplayCounter(true);
         }
     }
-
-    useEffect(() => {
-        // При загрузке компонента проверяем, есть ли значение в localStorage
-        const savedCount = localStorage.getItem('count');
-        if (savedCount) {
-            setCounter(parseInt(savedCount));
-        }
-    }, []);
 
     // кнопка увелечения счетчика
     const buttonInc = () => {
@@ -41,11 +53,6 @@ function App() {
         setCounter(startValue)
     }
 
-    useEffect(() => {
-        // При изменении значения counter сохраняем его в localStorage
-        localStorage.setItem('count', counter.toString());
-    }, [counter]);
-
     // блокировка кнопки
     const disabledButton = startValue > maxValue || startValue < 0 || startValue === maxValue
 
@@ -56,7 +63,6 @@ function App() {
         <div className={s.appContainer}>
             <div className={s.app + ' ' + s.appValue}>
                 <CounterSet maxValue={maxValue}
-                            setCounter={setCounter}
                             startValue={startValue}
                             setStartValue={setStartValue}
                             setMaxValue={setMaxValue}
