@@ -4,9 +4,6 @@ import Button from './Button/Button';
 import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 
-// доработать
-// при накрутки инпута - блокируется кнопка inc и там надпись должна быть enter value and press "set"
-
 function App() {
     const [startValue, setStartValue] = useState<number>(JSON.parse(localStorage.getItem('startValue') || '1'))
     const [maxValue, setMaxValue] = useState<number>(JSON.parse(localStorage.getItem('maxValue') || '5'))
@@ -41,10 +38,8 @@ function App() {
             setDisableResetButton(false);
         }
 
-        if (counter >= maxValue - 1) {
-            setCounter(counter + 1);
-        } else {
-            setCounter( counter + 1);
+        if (startValue < maxValue) {
+            setCounter(counter + 1)
         }
     }
 
