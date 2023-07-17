@@ -5,14 +5,16 @@ import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 
 // доработать
-// класс красные инпуты когда блокируются кнопки
 // при накрутки инпута - блокируется кнопка inc и там надпись должна быть enter value and press "set"
 
 function App() {
     const [startValue, setStartValue] = useState<number>(JSON.parse(localStorage.getItem('startValue') || '1'))
     const [maxValue, setMaxValue] = useState<number>(JSON.parse(localStorage.getItem('maxValue') || '5'))
     const [counter, setCounter] = useState<number>(startValue)
+
     const [error, setError] = useState<string>('Incorrect value')
+
+    const [disableResetButton, setDisableResetButton] = useState(true);
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
 
     // Сохранение значения при изменении счетчика
@@ -27,9 +29,7 @@ function App() {
 
     // установка счетчика
     const setValuesClickHandler = () => {
-        if (startValue > maxValue) {
-            setError('Start value must be less than max value');
-        } else if (maxValue > 1 || startValue > 0) {
+        if (maxValue > 1 || startValue > 0) {
             setCounter(startValue);
             setDisplayCounter(true);
         }
@@ -37,8 +37,14 @@ function App() {
 
     // кнопка увелечения счетчика
     const buttonInc = () => {
-        if (startValue < maxValue) {
+        if (disableResetButton) {
+            setDisableResetButton(false);
+        }
+
+        if (counter >= maxValue - 1) {
             setCounter(counter + 1);
+        } else {
+            setCounter( counter + 1);
         }
     }
 
@@ -51,7 +57,7 @@ function App() {
     const disabledButton = startValue > maxValue || startValue < 0 || startValue === maxValue
 
     // блокировка кнопки inc
-    const disabledButtonInc = startValue >= maxValue || startValue < 0 || counter >= maxValue
+    const disabledButtonInc = startValue >= maxValue || startValue < 0 || counter >= maxValue || !displayCounter
 
     return (
         <div className={s.appContainer}>
@@ -60,7 +66,9 @@ function App() {
                             startValue={startValue}
                             setStartValue={setStartValue}
                             setMaxValue={setMaxValue}
-                            setError={setError}/>
+                            setError={setError}
+                            setDisplayCounter={setDisplayCounter}
+                            setDisableResetButton={setDisableResetButton}/>
                 <Button name={'Set'} onClick={setValuesClickHandler} disabled={disabledButton}/>
             </div>
 

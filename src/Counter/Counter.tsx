@@ -18,9 +18,11 @@ const Counter: FC<CounterType> = ({counter, error, maxValue, startValue,displayC
 
     return (
         <div className={counterClassName}>
-            {!displayCounter ? (isInitDataIsWrong ? <p className={s.error + ' ' + s.p}>{error}</p> : <p className={s.p}>enter value and press "set"</p>) : counter}
+            {!displayCounter ? isInitDataIsWrong ? <p className={s.error + ' ' + s.p}>{error}</p> : <p className={s.p}>enter value and press "set"</p> : counter}
         </div>
     );
 };
 
 export default Counter;
+
+// {!displayCounter ? ( isLimitCounterValueIsWrong || isStartValueIsWrong || isInitDataIsWrong ? ( <p style={{ fontSize: '18px', color: 'red' }}>incorrect value</p>) : ( <p style={{ fontSize: '18px' }}>enter value and press "set"</p>)) : (counter)}
