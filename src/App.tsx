@@ -4,9 +4,13 @@ import Button from './Button/Button';
 import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 
+// доработать
+// класс красные инпуты когда блокируются кнопки
+// при накрутки инпута - блокируется кнопка inc и там надпись должна быть enter value and press "set"
+
 function App() {
-    const [startValue, setStartValue] = useState<number>(1)
-    const [maxValue, setMaxValue] = useState<number>(5)
+    const [startValue, setStartValue] = useState<number>(JSON.parse(localStorage.getItem('startValue') || '1'))
+    const [maxValue, setMaxValue] = useState<number>(JSON.parse(localStorage.getItem('maxValue') || '5'))
     const [counter, setCounter] = useState<number>(startValue)
     const [error, setError] = useState<string>('Incorrect value')
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
@@ -17,19 +21,9 @@ function App() {
         localStorage.setItem('startValue', JSON.stringify(startValue));
     }, [startValue]);
 
-    // Загрузка сохраненного значения при первом рендере
     useEffect(() => {
-        const savedCount = localStorage.getItem('startValue');
-
-        // делаем проверку, так как в localStorage может ничего не сидеть (null)
-        // JSON.parse - преобразовываем в объект
-        if (savedCount) {
-            const newCount = JSON.parse(savedCount)
-
-            // Сетаем сохраненное значение
-            setStartValue(newCount);
-        }
-    }, []);
+        localStorage.setItem('maxValue', JSON.stringify(maxValue));
+    }, [maxValue]);
 
     // установка счетчика
     const setValuesClickHandler = () => {

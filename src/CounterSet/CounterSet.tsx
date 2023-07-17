@@ -20,10 +20,10 @@ const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, se
     }
 
     const startInputClassName = s.input + ' ' +
-        (startValue < 0 ? s.error: '')
+        (startValue < 0 || maxValue === startValue || startValue > maxValue ? s.error : '')
 
     const maxInputClassName = s.input + ' ' +
-        (maxValue < 0 ? s.error: '')
+        (maxValue < 0 || maxValue === startValue || maxValue < startValue ? s.error : '')
 
     return (
         <div className={s.boxValue}>
