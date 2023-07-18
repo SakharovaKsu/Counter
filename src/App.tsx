@@ -5,8 +5,12 @@ import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 
 function App() {
-    const [startValue, setStartValue] = useState<number>(JSON.parse(localStorage.getItem('startValue') || '1'))
-    const [maxValue, setMaxValue] = useState<number>(JSON.parse(localStorage.getItem('maxValue') || '5'))
+
+    const initStartValue = JSON.parse(localStorage.getItem('startValue') || '1')
+    const initMaxValue = JSON.parse(localStorage.getItem('maxValue') || '5')
+
+    const [startValue, setStartValue] = useState<number>(initStartValue)
+    const [maxValue, setMaxValue] = useState<number>(initMaxValue)
     const [counter, setCounter] = useState<number>(startValue)
 
     const [error, setError] = useState<string>('Incorrect value')

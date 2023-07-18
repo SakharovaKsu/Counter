@@ -21,11 +21,19 @@ const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, se
         setMaxValue(+e.currentTarget.value)
     }
 
+    const isErrorStartInput = startValue < 0 || maxValue === startValue || startValue > maxValue
+    const isErrorMaxInput = maxValue < 0 || maxValue === startValue || maxValue < startValue
+
     const startInputClassName = s.input + ' ' +
-        (startValue < 0 || maxValue === startValue || startValue > maxValue ? s.error : '')
+        (isErrorStartInput  ? s.error : '')
 
     const maxInputClassName = s.input + ' ' +
-        (maxValue < 0 || maxValue === startValue || maxValue < startValue ? s.error : '')
+        (isErrorMaxInput ? s.error : '')
+
+    const onClickHandlerInput = () => {
+        setDisplayCounter(false);
+        setDisableResetButton(true)
+    }
 
     return (
         <div className={s.boxValue}>
@@ -36,7 +44,7 @@ const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, se
                        id={'max'}
                        value={maxValue}
                        onChange={onChangeMaxHandler}
-                       onClick={() => {setDisplayCounter(false); setDisableResetButton(true)}}/>
+                       onClick={onClickHandlerInput}/>
             </div>
             <div className={s.value}>
                 <label htmlFor={'start'}>Start value: </label>
@@ -45,8 +53,7 @@ const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, se
                        id={'start'}
                        value={startValue}
                        onChange={onChangeStartHandler}
-                       onClick={() => {setDisplayCounter(false); setDisableResetButton(true);
-                }}/>
+                       onClick={onClickHandlerInput}/>
             </div>
         </div>
     );
