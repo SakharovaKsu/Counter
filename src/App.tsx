@@ -6,7 +6,6 @@ import CounterSet from './CounterSet/CounterSet';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './ store';
 import {setCounterAC, setStartValueAC} from './reducerCounter';
-import {logDOM} from '@testing-library/react';
 
 function App() {
 
@@ -35,7 +34,7 @@ function App() {
     // установка счетчика
     const setValuesClickHandler = () => {
         if (maxValue > 1 || startValue > 0) {
-            dispatch(setStartValueAC(startValue))
+            dispatch(setCounterAC(startValue))
             setDisplayCounter(true);
         }
     }
@@ -48,7 +47,6 @@ function App() {
 
         if (startValue < maxValue) {
             dispatch(setCounterAC(counter + 1))
-            // setCounter(counter + 1)
         }
     }
 
