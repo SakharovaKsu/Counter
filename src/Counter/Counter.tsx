@@ -1,14 +1,17 @@
 import React, {FC, useState} from 'react';
 import s from './Counter.module.css'
+import {useSelector} from 'react-redux';
+import {AppRootStateType} from '../ store';
 
 type CounterType = {
     counter: number
-    error: string
     maxValue: number
     startValue: number
     displayCounter: boolean
 }
-const Counter: FC<CounterType> = ({counter, error, maxValue, startValue,displayCounter}) => {
+const Counter: FC<CounterType> = ({counter, maxValue, startValue, displayCounter}) => {
+
+    const error = useSelector<AppRootStateType, string>(state => state.counter.error);
 
     const isInitDataIsWrong =
         maxValue < 1 || startValue < 0 || startValue >= maxValue || startValue === maxValue

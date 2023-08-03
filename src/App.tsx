@@ -3,20 +3,24 @@ import s from './App.module.css';
 import Button from './Button/Button';
 import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from './ store';
+import {setCounterAC, setStartValueAC} from './reducerCounter';
+import {logDOM} from '@testing-library/react';
 
 function App() {
 
     const initStartValue = JSON.parse(localStorage.getItem('startValue') || '1')
     const initMaxValue = JSON.parse(localStorage.getItem('maxValue') || '5')
 
-    const [startValue, setStartValue] = useState<number>(initStartValue)
-    const [maxValue, setMaxValue] = useState<number>(initMaxValue)
-    const [counter, setCounter] = useState<number>(startValue)
-
-    const [error, setError] = useState<string>('Incorrect value')
-
     const [disableResetButton, setDisableResetButton] = useState(true);
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
+
+    const startValue = useSelector<AppRootStateType, number>(state => state.counter.startValue);
+    const maxValue = useSelector<AppRootStateType, number>(state => state.counter.maxValue);
+    const counter = useSelector<AppRootStateType, number>(state => state.counter.counter);
+
+    const dispatch = useDispatch()
 
     // Сохранение значения при изменении счетчика
     // JSON.stringify - преобразование в строку
@@ -31,7 +35,7 @@ function App() {
     // установка счетчика
     const setValuesClickHandler = () => {
         if (maxValue > 1 || startValue > 0) {
-            setCounter(startValue);
+            dispatch(setStartValueAC(startValue))
             setDisplayCounter(true);
         }
     }
@@ -43,13 +47,14 @@ function App() {
         }
 
         if (startValue < maxValue) {
-            setCounter(counter + 1)
+            dispatch(setCounterAC(counter + 1))
+            // setCounter(counter + 1)
         }
     }
 
     // сброс счетчика
     const buttonReset = () => {
-        setCounter(startValue)
+         dispatch(setCounterAC(startValue));
     }
 
     // блокировка кнопки
@@ -63,20 +68,21 @@ function App() {
             <div className={s.app + ' ' + s.appValue}>
                 <CounterSet maxValue={maxValue}
                             startValue={startValue}
-                            setStartValue={setStartValue}
-                            setMaxValue={setMaxValue}
-                            setError={setError}
+                            // setStartValue={setStartValue}
+                            // setMaxValue={setMaxValue}
                             setDisplayCounter={setDisplayCounter}
-                            setDisableResetButton={setDisableResetButton}/>
+                            setDisableResetButton={setDisableResetButton}
+                />
                 <Button name={'Set'} onClick={setValuesClickHandler} disabled={disabledButton}/>
             </div>
 
             <div className={s.app}>
                 <Counter counter={counter}
-                         error={error}
+                         // error={error}
                          maxValue={maxValue}
                          startValue={startValue}
-                         displayCounter={displayCounter}/>
+                         displayCounter={displayCounter}
+                />
                 <div className={s.box}>
                     <Button onClick={buttonInc} disabled={disabledButtonInc} name={'inc'}/>
                     <Button onClick={buttonReset} disabled={disabledButton} name={'reset'}/>

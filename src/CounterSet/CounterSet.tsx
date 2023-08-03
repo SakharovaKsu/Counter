@@ -1,24 +1,29 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import s from './CounterSet.module.css'
+import {setMaxValueAC, setStartValueAC} from '../reducerCounter';
+import {useDispatch} from 'react-redux';
 
 type CounterSetType = {
     maxValue: number
     startValue: number
-    setStartValue: (value: number) => void
-    setMaxValue: (value: number) => void
-    setError: (text: string) => void
+    // setStartValue: (value: number) => void
+    // setMaxValue: (value: number) => void
     setDisplayCounter: (value: boolean) => void
     setDisableResetButton: (value: boolean) => void
 }
 
-const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setStartValue, setMaxValue,  setDisplayCounter, setDisableResetButton}) => {
+const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setDisplayCounter, setDisableResetButton}) => {
+
+    const dispatch = useDispatch()
 
     const onChangeStartHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setStartValue(+e.currentTarget.value)
+        dispatch(setStartValueAC(+e.currentTarget.value))
+        // setStartValue(+e.currentTarget.value)
     }
 
     const onChangeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setMaxValue(+e.currentTarget.value)
+        dispatch(setMaxValueAC(+e.currentTarget.value))
+        // setMaxValue(+e.currentTarget.value)
     }
 
     const isErrorStartInput = startValue < 0 || maxValue === startValue || startValue > maxValue
