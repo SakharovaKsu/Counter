@@ -6,8 +6,6 @@ import {useDispatch} from 'react-redux';
 type CounterSetType = {
     maxValue: number
     startValue: number
-    // setStartValue: (value: number) => void
-    // setMaxValue: (value: number) => void
     setDisplayCounter: (value: boolean) => void
     setDisableResetButton: (value: boolean) => void
 }
@@ -18,12 +16,10 @@ const CounterSet:FC<CounterSetType> = ({ maxValue, startValue, setDisplayCounter
 
     const onChangeStartHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setStartValueAC(+e.currentTarget.value))
-        // setStartValue(+e.currentTarget.value)
     }
 
     const onChangeMaxHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setMaxValueAC(+e.currentTarget.value))
-        // setMaxValue(+e.currentTarget.value)
     }
 
     const isErrorStartInput = startValue < 0 || maxValue === startValue || startValue > maxValue

@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC} from 'react';
 import s from './Counter.module.css'
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../ store';

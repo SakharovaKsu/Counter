@@ -5,14 +5,14 @@ import Counter from './Counter/Counter';
 import CounterSet from './CounterSet/CounterSet';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './ store';
-import {setCounterAC, setStartValueAC} from './reducerCounter';
+import {setCounterAC, setMaxValueAC, setStartValueAC} from './reducerCounter';
 
 function App() {
 
     const initStartValue = JSON.parse(localStorage.getItem('startValue') || '1')
     const initMaxValue = JSON.parse(localStorage.getItem('maxValue') || '5')
 
-    const [disableResetButton, setDisableResetButton] = useState(true);
+    const [disableResetButton, setDisableResetButton] = useState<boolean>(true);
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
 
     const startValue = useSelector<AppRootStateType, number>(state => state.counter.startValue);
@@ -28,8 +28,19 @@ function App() {
     }, [startValue]);
 
     useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(maxValue));
+        localStorage.setItem('initMaxValue', JSON.stringify(maxValue));
     }, [maxValue]);
+
+    // Сохранение значения при перезагрузке страници
+    useEffect(() => {
+        dispatch(setStartValueAC(initStartValue));
+        localStorage.setItem('startValue', JSON.stringify(startValue));
+    }, []);
+
+    useEffect(() => {
+        dispatch(setMaxValueAC(initMaxValue));
+        localStorage.setItem('initMaxValue', JSON.stringify(maxValue));
+    }, []);
 
     // установка счетчика
     const setValuesClickHandler = () => {
@@ -76,7 +87,6 @@ function App() {
 
             <div className={s.app}>
                 <Counter counter={counter}
-                         // error={error}
                          maxValue={maxValue}
                          startValue={startValue}
                          displayCounter={displayCounter}
