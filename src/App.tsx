@@ -10,7 +10,7 @@ import {setCounterAC, setMaxValueAC, setStartValueAC} from './reducerCounter';
 function App() {
 
     const initStartValue = JSON.parse(localStorage.getItem('startValue') || '1')
-    const initMaxValue = JSON.parse(localStorage.getItem('maxValue') || '5')
+    const initMaxValue = JSON.parse(localStorage.getItem('initMaxValue') || '5')
 
     const [disableResetButton, setDisableResetButton] = useState<boolean>(true);
     const [displayCounter, setDisplayCounter] = useState<boolean>(false);
